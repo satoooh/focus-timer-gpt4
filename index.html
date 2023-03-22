@@ -1,39 +1,86 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Focus Timer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-100">
-  <div id="app" class="container mx-auto py-20">
-    <!-- 初期画面 -->
-    <div id="initial-screen">
-      <div class="flex justify-center">
-        <div class="mr-5">
-          <label for="focus-time" class="block mb-2">Focus</label>
-          <input type="text" id="focus-time" value="25:00" class="border rounded px-2 py-1 w-20 text-center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus Timer</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" id="favicon" href="focus.ico" />
+  </head>
+  <body class="bg-blue-300">
+    <div
+      id="app"
+      class="container mx-auto py-20 h-screen flex flex-col justify-center"
+    >
+      <!-- 初期画面 -->
+      <div id="initial-screen">
+        <div class="flex justify-center mb-5">
+          <div class="mr-5">
+            <label for="focus-time" class="block mb-2">Focus</label>
+            <input
+              type="text"
+              id="focus-time"
+              value="25:00"
+              class="border rounded px-2 py-1 w-24 text-center text-lg"
+            />
+          </div>
+          <div>
+            <label for="rest-time" class="block mb-2">Rest</label>
+            <input
+              type="text"
+              id="rest-time"
+              value="05:00"
+              class="border rounded px-2 py-1 w-24 text-center text-lg"
+            />
+          </div>
         </div>
-        <div>
-          <label for="rest-time" class="block mb-2">Rest</label>
-          <input type="text" id="rest-time" value="05:00" class="border rounded px-2 py-1 w-20 text-center">
+        <button
+          id="start-button"
+          class="bg-blue-500 text-white px-6 py-2 rounded mt-5 block mx-auto"
+        >
+          <i class="fas fa-play"></i>
+        </button>
+      </div>
+      <!-- countDown 処理画面 -->
+      <div id="countdown-screen" class="hidden">
+        <h2 id="status" class="text-3xl font-bold text-center mb-5">Focus</h2>
+        <h1 id="time-left" class="text-6xl font-bold text-center mb-10">
+          25:00
+        </h1>
+        <div class="flex justify-center">
+          <button
+            id="next-button"
+            class="bg-blue-500 text-white px-6 py-2 rounded mx-2"
+          >
+            <i class="fas fa-forward"></i>
+          </button>
+          <button
+            id="stop-button"
+            class="bg-red-500 text-white px-6 py-2 rounded mx-2"
+          >
+            <i class="fas fa-stop"></i>
+          </button>
+          <button
+            id="pause-button"
+            class="bg-yellow-500 text-white px-6 py-2 rounded mx-2"
+          >
+            <i class="fas fa-pause"></i>
+          </button>
         </div>
       </div>
-      <button id="start-button" class="bg-blue-500 text-white px-4 py-2 rounded mt-5 block mx-auto">Start</button>
     </div>
-    <!-- countDown 処理画面 -->
-    <div id="countdown-screen" class="hidden">
-      <h2 id="status" class="text-2xl font-bold text-center mb-5">Focus</h2>
-      <h1 id="time-left" class="text-5xl font-bold text-center mb-10">25:00</h1>
-      <div class="flex justify-center">
-        <button id="next-button" class="bg-blue-500 text-white px-4 py-2 rounded mx-2">Next</button>
-        <button id="stop-button" class="bg-red-500 text-white px-4 py-2 rounded mx-2">Stop</button>
-        <button id="pause-button" class="bg-yellow-500 text-white px-4 py-2 rounded mx-2">Pause</button>
-      </div>
-    </div>
-  </div>
-  <script src="index.js"></script>
-</body>
+    <audio id="focus-sound" src="focus-sound.mp3"></audio>
+    <audio id="rest-sound" src="rest-sound.mp3"></audio>
+    <script src="index.js"></script>
+  </body>
 </html>

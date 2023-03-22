@@ -8,6 +8,9 @@ const focusTimeInput = document.getElementById("focus-time");
 const restTimeInput = document.getElementById("rest-time");
 const statusElement = document.getElementById("status");
 const timeLeftElement = document.getElementById("time-left");
+const favicon = document.getElementById("favicon");
+const focusSound = document.getElementById("focus-sound");
+const restSound = document.getElementById("rest-sound");
 
 let isPaused = false;
 let isFocus = true;
@@ -35,15 +38,16 @@ stopButton.addEventListener("click", () => {
   countdown.stop();
   countdownScreen.classList.add("hidden");
   initialScreen.classList.remove("hidden");
+  resetBackgroundColor();
 });
 
 pauseButton.addEventListener("click", () => {
   if (isPaused) {
     countdown.resume();
-    pauseButton.textContent = "Pause";
+    pauseButton.innerHTML = '<i class="fas fa-pause"></i>';
   } else {
     countdown.pause();
-    pauseButton.textContent = "Resume";
+    pauseButton.innerHTML = '<i class="fas fa-play"></i>';
   }
   isPaused = !isPaused;
 });
@@ -66,6 +70,7 @@ class Countdown {
         this.remainingSeconds = isFocus ? this.focusSeconds : this.restSeconds;
         this.playSound();
         this.changeBackgroundColor();
+        this.changeFavicon();
       }
 
       this.updateTimeLeft();
@@ -85,6 +90,7 @@ class Countdown {
     this.remainingSeconds = isFocus ? this.focusSeconds : this.restSeconds;
     this.playSound();
     this.changeBackgroundColor();
+    this.changeFavicon();
     this.updateTimeLeft();
   }
 
@@ -106,33 +112,33 @@ class Countdown {
   }
 
   playSound() {
-    // ここでは簡単なビープ音を再生しますが、別の音に変更できます
-    const audioContext = new (window.AudioContext ||
-      window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    gainNode.gain.setValueAtTime(1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(
-      0.001,
-      audioContext.currentTime + 1
-    );
-
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 1);
+    if (isFocus) {
+      restSound.play();
+    } else {
+      focusSound.play();
+    }
   }
 
   changeBackgroundColor() {
     if (isFocus) {
       document.body.classList.remove("bg-green-300");
-      document.body.classList.add("bg-gray-100");
+      document.body.classList.add("bg-blue-300");
     } else {
-      document.body.classList.remove("bg-gray-100");
+      document.body.classList.remove("bg-blue-300");
       document.body.classList.add("bg-green-300");
     }
   }
+
+  changeFavicon() {
+    if (isFocus) {
+      favicon.href = "focus.ico";
+    } else {
+      favicon.href = "rest.ico";
+    }
+  }
+}
+
+function resetBackgroundColor() {
+  document.body.classList.remove("bg-green-300");
+  document.body.classList.add("bg-blue-300");
 }
