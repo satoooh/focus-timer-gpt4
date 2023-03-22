@@ -1,51 +1,78 @@
-@import url("https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css");
+html {
+  height: 100%;
+}
 
 body {
+  height: 100%;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  font-family: "";
+  justify-content: center;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 .input-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .input-label {
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
 
 .input-field {
-  appearance: none;
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px solid #fff;
-  color: #fff;
+  width: 3rem;
   text-align: center;
-  width: 50px;
-  font-size: 1.2rem;
-  margin: 0 4px;
-}
-
-.input-field:focus {
+  margin: 0 0.5rem;
+  border: none;
+  border-bottom: 2px solid #000;
   outline: none;
+  font-size: 1.25rem;
 }
 
 .button-group {
   display: flex;
-  gap: 8px;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .hidden {
   display: none;
+}
+
+.bg-blue-300 {
+  background-color: #64b5f6;
+}
+
+.bg-green-300 {
+  background-color: #81c784;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #f3f3f3;
+}
+
+.button i {
+  font-size: 24px;
 }

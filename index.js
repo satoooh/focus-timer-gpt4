@@ -18,23 +18,21 @@ let isPaused = false;
 let isFocus = true;
 let countdown;
 
+const resetBackgroundColor = () => {
+  document.body.classList.remove("bg-red-300");
+  document.body.classList.add("bg-blue-300");
+};
+
 startButton.addEventListener("click", () => {
   initialScreen.classList.add("hidden");
   countdownScreen.classList.remove("hidden");
 
-  const focusTime = [
-    Number(focusMinutesInput.value),
-    Number(focusSecondsInput.value),
-  ];
-  const restTime = [
-    Number(restMinutesInput.value),
-    Number(restSecondsInput.value),
-  ];
+  const focusTime =
+    focusMinutesInput.value * 60 + parseInt(focusSecondsInput.value);
+  const restTime =
+    restMinutesInput.value * 60 + parseInt(restSecondsInput.value);
 
-  countdown = new Countdown(
-    focusTime[0] * 60 + focusTime[1],
-    restTime[0] * 60 + restTime[1]
-  );
+  countdown = new Countdown(focusTime, restTime);
   countdown.start();
 });
 
@@ -91,7 +89,19 @@ class Countdown {
   }
 
   resume() {
-    this.start();
+    this.interval = setInterval(() => {
+      this.remainingSeconds--;
+
+      if (this.remainingSeconds < 0) {
+        isFocus = !isFocus;
+        this.remainingSeconds = isFocus ? this.focusSeconds : this.restSeconds;
+        this.playSound();
+        this.changeBackgroundColor();
+        this.changeFavicon();
+      }
+
+      this.updateTimeLeft();
+    }, 1000);
   }
 
   next() {
@@ -106,6 +116,8 @@ class Countdown {
   stop() {
     clearInterval(this.interval);
     this.remainingSeconds = this.focusSeconds;
+    isFocus = true;
+    this.updateTimeLeft();
   }
 
   updateTimeLeft() {
@@ -114,40 +126,33 @@ class Countdown {
     const timeLeft = `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;
-
-    statusElement.textContent = isFocus ? "Focus" : "Rest";
     timeLeftElement.textContent = timeLeft;
-    document.title = `${timeLeft} - Focus Timer`;
-  }
-
-  playSound() {
-    if (isFocus) {
-      restSound.play();
-    } else {
-      focusSound.play();
-    }
+    statusElement.textContent = isFocus ? "Focus" : "Rest";
   }
 
   changeBackgroundColor() {
     if (isFocus) {
-      document.body.classList.remove("bg-green-300");
+      document.body.classList.remove("bg-red-300");
       document.body.classList.add("bg-blue-300");
     } else {
       document.body.classList.remove("bg-blue-300");
-      document.body.classList.add("bg-green-300");
+      document.body.classList.add("bg-red-300");
     }
   }
 
   changeFavicon() {
     if (isFocus) {
-      favicon.href = "focus.svg";
+      favicon.setAttribute("href", "focus.svg");
     } else {
-      favicon.href = "rest.svg";
+      favicon.setAttribute("href", "rest.svg");
     }
   }
-}
 
-function resetBackgroundColor() {
-  document.body.classList.remove("bg-green-300");
-  document.body.classList.add("bg-blue-300");
+  playSound() {
+    if (isFocus) {
+      focusSound.play();
+    } else {
+      restSound.play();
+    }
+  }
 }
