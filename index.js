@@ -4,8 +4,10 @@ const startButton = document.getElementById("start-button");
 const nextButton = document.getElementById("next-button");
 const stopButton = document.getElementById("stop-button");
 const pauseButton = document.getElementById("pause-button");
-const focusTimeInput = document.getElementById("focus-time");
-const restTimeInput = document.getElementById("rest-time");
+const focusMinutesInput = document.getElementById("focus-minutes");
+const focusSecondsInput = document.getElementById("focus-seconds");
+const restMinutesInput = document.getElementById("rest-minutes");
+const restSecondsInput = document.getElementById("rest-seconds");
 const statusElement = document.getElementById("status");
 const timeLeftElement = document.getElementById("time-left");
 const favicon = document.getElementById("favicon");
@@ -20,12 +22,18 @@ startButton.addEventListener("click", () => {
   initialScreen.classList.add("hidden");
   countdownScreen.classList.remove("hidden");
 
-  const focusTime = focusTimeInput.value.split(":").map(Number);
-  const restTime = restTimeInput.value.split(":").map(Number);
+  const focusTime = [
+    parseInt(focusMinutesInput.value) * 60,
+    parseInt(focusSecondsInput.value),
+  ];
+  const restTime = [
+    parseInt(restMinutesInput.value) * 60,
+    parseInt(restSecondsInput.value),
+  ];
 
   countdown = new Countdown(
-    focusTime[0] * 60 + focusTime[1],
-    restTime[0] * 60 + restTime[1]
+    focusTime[0] + focusTime[1],
+    restTime[0] + restTime[1]
   );
   countdown.start();
 });
@@ -79,10 +87,13 @@ class Countdown {
 
   pause() {
     clearInterval(this.interval);
+    this.interval = null;
   }
 
   resume() {
-    this.start();
+    if (!this.interval) {
+      this.start();
+    }
   }
 
   next() {
@@ -131,9 +142,9 @@ class Countdown {
 
   changeFavicon() {
     if (isFocus) {
-      favicon.href = "focus.ico";
+      favicon.href = "focus.svg";
     } else {
-      favicon.href = "rest.ico";
+      favicon.href = "rest.svg";
     }
   }
 }

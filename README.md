@@ -52,3 +52,15 @@ commit - v1
 ```
 
 commit - v2
+
+```prompt.md
+ありがとうございます。
+・faviconは svg で構わないので、 svg ファイルのコードとともに修正箇所を出力してください。
+・各ボタンに hover 時の挙動を追加してください。
+・mm:ss の input 箇所に 2 などの不適な値をいれると NaN:NaN となってしまいます。これを修正するため、 : 箇所の前後で input を2つに分けましょう。また、それぞれの input 箇所にもスタイルを追加してください。
+・focus-sound.mp3 と rest-sound.mp3 はどこで入手すればよいでしょうか。
+```
+
+focus-sound.mp3 と rest-sound.mp3 は https://soundeffect-lab.info/ から入手した。
+
+commit - v3
