@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus Timer</title>
+    <link href="style.css" rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css"
+      href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap"
     />
     <link
       rel="stylesheet"
@@ -14,51 +15,82 @@
       integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
     <link id="favicon" rel="icon" href="focus.svg" type="image/svg+xml" />
   </head>
-  <body class="bg-blue-300">
-    <div id="initial-screen">
-      <h1 class="text-4xl mb-4">Focus Timer</h1>
-      <div>
-        <label for="focus-minutes" class="mr-2">Focus:</label>
+  <body class="bg-blue-300 font-varela">
+    <div id="initial-screen" class="container">
+      <h1 class="text-4xl mb-8">Focus Timer</h1>
+      <div class="input-wrapper">
+        <label for="focus-minutes" class="input-label">Focus:</label>
         <input
           type="number"
           id="focus-minutes"
-          min="0"
+          class="input-field"
           value="25"
-          class="mr-1"
+          min="0"
         />
-        <span class="mr-1">:</span>
-        <input type="number" id="focus-seconds" min="0" value="0" />
+        <span>:</span>
+        <input
+          type="number"
+          id="focus-seconds"
+          class="input-field"
+          value="00"
+          min="0"
+          max="59"
+        />
       </div>
-      <div class="mt-4">
-        <label for="rest-minutes" class="mr-2">Rest:</label>
-        <input type="number" id="rest-minutes" min="0" value="5" class="mr-1" />
-        <span class="mr-1">:</span>
-        <input type="number" id="rest-seconds" min="0" value="0" />
+      <div class="input-wrapper">
+        <label for="rest-minutes" class="input-label">Rest:</label>
+        <input
+          type="number"
+          id="rest-minutes"
+          class="input-field"
+          value="5"
+          min="0"
+        />
+        <span>:</span>
+        <input
+          type="number"
+          id="rest-seconds"
+          class="input-field"
+          value="00"
+          min="0"
+          max="59"
+        />
       </div>
-      <button id="start-button" class="mt-4">
+      <button
+        id="start-button"
+        class="rounded-full p-4 bg-white shadow-md hover:bg-gray-200 transition-all"
+      >
         <i class="fas fa-play"></i>
       </button>
     </div>
-    <div id="countdown-screen" class="hidden">
-      <h1 id="status" class="text-4xl mb-4">Focus</h1>
-      <h2 id="time-left" class="text-2xl mb-4">25:00</h2>
-      <div>
-        <button id="next-button">
+    <div id="countdown-screen" class="container hidden">
+      <h1 id="status" class="text-4xl mb-8">Focus</h1>
+      <div id="time-left" class="text-4xl mb-8">25:00</div>
+      <div class="button-group">
+        <button
+          id="next-button"
+          class="rounded-full p-4 bg-white shadow-md hover:bg-gray-200 transition-all"
+        >
           <i class="fas fa-forward"></i>
         </button>
-        <button id="stop-button" class="mx-4">
+        <button
+          id="stop-button"
+          class="rounded-full p-4 bg-white shadow-md hover:bg-gray-200 transition-all"
+        >
           <i class="fas fa-stop"></i>
         </button>
-        <button id="pause-button">
+        <button
+          id="pause-button"
+          class="rounded-full p-4 bg-white shadow-md hover:bg-gray-200 transition-all"
+        >
           <i class="fas fa-pause"></i>
         </button>
       </div>
     </div>
-    <audio id="focus-sound" src="focus-sound.mp3"></audio>
-    <audio id="rest-sound" src="rest-sound.mp3"></audio>
+    <audio id="focus-sound" src="focus-sound.mp3" preload="auto"></audio>
+    <audio id="rest-sound" src="rest-sound.mp3" preload="auto"></audio>
     <script src="index.js"></script>
   </body>
 </html>

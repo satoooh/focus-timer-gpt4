@@ -64,3 +64,15 @@ commit - v2
 focus-sound.mp3 と rest-sound.mp3 は https://soundeffect-lab.info/ から入手した。
 
 commit - v3
+
+```prompt.md
+ありがとうございます。以下の変更を施した修正版のコードを出力してください。
+
+・input field のスタイルを、 input 感が無いようにおしゃれにしたいです。
+・文字のフォントもアイコンに合った少し丸みを帯びた web フォントを採用しましょう。
+・start時にも rest→focus の音が鳴るようにしてください。
+・要素は中央揃えしてください。
+```
+
+commit - v4
+

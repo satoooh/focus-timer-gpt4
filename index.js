@@ -23,17 +23,17 @@ startButton.addEventListener("click", () => {
   countdownScreen.classList.remove("hidden");
 
   const focusTime = [
-    parseInt(focusMinutesInput.value) * 60,
-    parseInt(focusSecondsInput.value),
+    Number(focusMinutesInput.value),
+    Number(focusSecondsInput.value),
   ];
   const restTime = [
-    parseInt(restMinutesInput.value) * 60,
-    parseInt(restSecondsInput.value),
+    Number(restMinutesInput.value),
+    Number(restSecondsInput.value),
   ];
 
   countdown = new Countdown(
-    focusTime[0] + focusTime[1],
-    restTime[0] + restTime[1]
+    focusTime[0] * 60 + focusTime[1],
+    restTime[0] * 60 + restTime[1]
   );
   countdown.start();
 });
@@ -70,6 +70,7 @@ class Countdown {
 
   start() {
     this.updateTimeLeft();
+    this.playSound();
     this.interval = setInterval(() => {
       this.remainingSeconds--;
 
@@ -87,13 +88,10 @@ class Countdown {
 
   pause() {
     clearInterval(this.interval);
-    this.interval = null;
   }
 
   resume() {
-    if (!this.interval) {
-      this.start();
-    }
+    this.start();
   }
 
   next() {
